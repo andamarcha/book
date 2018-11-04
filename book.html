@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %} Book Info {% endblock %}
+
+{% block body %}
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+<div class="container">
+	<h2> {{ book_info[3] }} </h2>	
+</div>
+
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">ISBN</th>
+				<th scope="col">Author</th>
+				<th scope="col">Title</th>
+				<th scope="col">Year</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<th scope="row"> {{ book_info[1] }} </th>
+				<td> {{book_info[2]}} </td>
+				<td> {{book_info[3]}} </td>
+				<td> {{book_info[4]}} </td>
+			</tr>
+		</tbody>
+	</table>
+
+<div class="container">
+	<h2>
+		{{ message }}
+	</h2>
+</div>
+
+<form action="{{ url_for('review', id=book_info[0]) }}" method="post">
+	<select name="review">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select><br>
+
+	<textarea name="text" rows="4" cols="50">
+	</textarea><br>
+
+	<br><button type="submit" class="btn btn-primary">Send Review</button>
+</form>
+
+<div class="container">
+	<h4>Goodreads Reviews: </h4> <br>
+	<h5> Average Score: {{ goodreads['score'] }} </h2>
+	<h5> Number of reviews: {{ goodreads['review_qty'] }} </h2>
+	
+</div>
+
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Rating</th>
+				<th scope="col">Comment</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				{% for review in review_list -%}
+					<td>{{ review[1] }}</td>
+					<td> {{ review[3] }} </td>
+				{%- endfor %}
+			</tr>
+		</tbody>
+	</table>
+	
+</div>
+
+{% endblock %}
